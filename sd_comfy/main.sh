@@ -55,16 +55,7 @@ fi
 log "Finished Preparing Environment for Stable Diffusion Comfy"
 
 
-if [[ -z "$SKIP_MODEL_DOWNLOAD" ]]; then
-  echo "### Downloading Model for Stable Diffusion Comfy ###"
-  log "Downloading Model for Stable Diffusion Comfy"
-  bash $current_dir/../utils/sd_model_download/main.sh
-  log "Finished Downloading Models for Stable Diffusion Comfy"
-else
-  log "Skipping Model Download for Stable Diffusion Comfy"
-fi
-
-
+wget -F /notebooks/models/sd https://stuffer.ai/startup/models/bigbellybabes_v20.safetensors https://stuffer.ai/startup/models/bbw_Aurora%20Borealis.safetensors https://stuffer.ai/startup/models/biggerGirlsModels_modelBV2.ckpt
 
 
 if [[ -z "$INSTALL_ONLY" ]]; then
@@ -75,19 +66,9 @@ if [[ -z "$INSTALL_ONLY" ]]; then
   echo $! > /tmp/sd_comfy.pid
 fi
 
-
-send_to_discord "Stable Diffusion Comfy Started"
-
 if env | grep -q "PAPERSPACE"; then
-  send_to_discord "Link: https://$PAPERSPACE_FQDN/sd-comfy/"
+  echo "Link: https://$PAPERSPACE_FQDN/sd-comfy/"
 fi
 
-
-if [[ -n "${CF_TOKEN}" ]]; then
-  if [[ "$RUN_SCRIPT" != *"sd_comfy"* ]]; then
-    export RUN_SCRIPT="$RUN_SCRIPT,sd_comfy"
-  fi
-  bash $current_dir/../cloudflare_reload.sh
-fi
 
 echo "### Done ###"
