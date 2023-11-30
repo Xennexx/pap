@@ -53,6 +53,10 @@ fi
 
   # Run the scripts after Nginx is started
 bash /notebooks/sd_comfy/main.sh
+bash /notebooks/sd_comfy/main2.sh
+bash /notebooks/sd_comfy/main3.sh
+bash /notebooks/sd_comfy/main4.sh
+bash /notebooks/sd_comfy/main5.sh
 
 # Read the RUN_SCRIPT environment variable
 run_script="$RUN_SCRIPT"
