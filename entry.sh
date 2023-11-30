@@ -51,6 +51,9 @@ if env | grep -q "PAPERSPACE"; then
   /usr/sbin/nginx
 fi
 
+  # Run the scripts after Nginx is started
+bash /notebooks/sd_comfy/main.sh
+
 # Read the RUN_SCRIPT environment variable
 run_script="$RUN_SCRIPT"
 
