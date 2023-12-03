@@ -67,6 +67,26 @@ server {
             rewrite ^/sd-comfy/(.*)$ /$1 break;
             proxy_pass http://localhost:7005;
         }
+
+        if ($first_subpath ~* com2) {
+            rewrite ^/com2/(.*)$ /$1 break;
+            proxy_pass http://localhost:7100;
+        }
+
+        if ($first_subpath ~* com3) {
+            rewrite ^/com3/(.*)$ /$1 break;
+            proxy_pass http://localhost:7101;
+        }
+
+        if ($first_subpath ~* com4) {
+            rewrite ^/com4/(.*)$ /$1 break;
+            proxy_pass http://localhost:7102;
+        }
+
+        if ($first_subpath ~* com5) {
+            rewrite ^/com5/(.*)$ /$1 break;
+            proxy_pass http://localhost:7103;
+        }
     
         if ($first_subpath ~* sd-fooocus) {
             rewrite ^/sd-fooocus/(.*)$ /$1 break;
@@ -194,6 +214,34 @@ server {
         
         rewrite ^/sd-comfy/(.*) /$1 break;
         proxy_pass http://localhost:7005;
+        
+    }
+
+    location ~* ^/com2/(.*)$ {
+        
+        rewrite ^/com2/(.*) /$1 break;
+        proxy_pass http://localhost:7100;
+        
+    }
+
+    location ~* ^/com3/(.*)$ {
+        
+        rewrite ^/com3/(.*) /$1 break;
+        proxy_pass http://localhost:7101;
+        
+    }
+
+    location ~* ^/com4/(.*)$ {
+        
+        rewrite ^/com4/(.*) /$1 break;
+        proxy_pass http://localhost:7102;
+        
+    }
+
+    location ~* ^/com5/(.*)$ {
+        
+        rewrite ^/com5/(.*) /$1 break;
+        proxy_pass http://localhost:7103;
         
     }
     
