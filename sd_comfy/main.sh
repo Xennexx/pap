@@ -22,13 +22,8 @@ if [[ "$REINSTALL_SD_COMFY" || ! -f "/tmp/sd_comfy.prepared" ]]; then
 
     symlinks=(
       "$REPO_DIR/output:$IMAGE_OUTPUTS_DIR/stable-diffusion-comfy"
-      "$MODEL_DIR:$WORKING_DIR/models"
-      "$MODEL_DIR/sd:$LINK_MODEL_TO"
-      "$MODEL_DIR/lora:$LINK_LORA_TO"
-      "$MODEL_DIR/vae:$LINK_VAE_TO"
-      "$MODEL_DIR/upscaler:$LINK_UPSCALER_TO"
-      "$MODEL_DIR/controlnet:$LINK_CONTROLNET_TO"
-      "$MODEL_DIR/embedding:$LINK_EMBEDDING_TO"
+      "$REPO_DIR/temp:$IMAGE_OUTPUTS_DIR/stable-diffusion-comfy/temp"
+
     )
     prepare_link "${symlinks[@]}"
     rm -rf $VENV_DIR/sd_comfy-env
@@ -55,14 +50,17 @@ fi
 log "Finished Preparing Environment for Stable Diffusion Comfy"
 
 
-wget -P /notebooks/models/sd https://stuffer.ai/startup/models/bigbellybabes_v20.safetensors https://stuffer.ai/startup/models/bbw_Aurora%20Borealis.safetensors https://stuffer.ai/startup/models/biggerGirlsModels_modelBV2.ckpt
+
+
 
 
 if [[ -z "$INSTALL_ONLY" ]]; then
   echo "### Starting Stable Diffusion Comfy ###"
   log "Starting Stable Diffusion Comfy"
+  
+  
   cd "$REPO_DIR"
-  PYTHONUNBUFFERED=1 service_loop "python main.py --dont-print-server --highvram --port $SD_COMFY_PORT ${EXTRA_SD_COMFY_ARGS}" > $LOG_DIR/sd_comfy.log 2>&1 &
+  PYTHONUNBUFFERED=1 service_loop "python main.py --dont-print-server --highvram --port 7005" > $LOG_DIR/sd_comfy.log 2>&1 &
   echo $! > /tmp/sd_comfy.pid
 fi
 
