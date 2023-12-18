@@ -8,7 +8,6 @@ source .env
 # Set up a trap to call the error_exit function on ERR signal
 trap 'error_exit "### ERROR ###"' ERR
 
-
 echo "### Setting up Stable Diffusion Comfy ###"
 log "Setting up Stable Diffusion Comfy"
 if [[ "$REINSTALL_SD_COMFY" || ! -f "/tmp/sd_comfy.prepared" ]]; then
@@ -22,13 +21,8 @@ if [[ "$REINSTALL_SD_COMFY" || ! -f "/tmp/sd_comfy.prepared" ]]; then
 
     symlinks=(
       "$REPO_DIR/output:$IMAGE_OUTPUTS_DIR/stable-diffusion-comfy"
-      "$MODEL_DIR:$WORKING_DIR/models"
-      "$MODEL_DIR/sd:$LINK_MODEL_TO"
-      "$MODEL_DIR/lora:$LINK_LORA_TO"
-      "$MODEL_DIR/vae:$LINK_VAE_TO"
-      "$MODEL_DIR/upscaler:$LINK_UPSCALER_TO"
-      "$MODEL_DIR/controlnet:$LINK_CONTROLNET_TO"
-      "$MODEL_DIR/embedding:$LINK_EMBEDDING_TO"
+      "$REPO_DIR/temp:$IMAGE_OUTPUTS_DIR/stable-diffusion-comfy/temp"
+
     )
     prepare_link "${symlinks[@]}"
     rm -rf $VENV_DIR/sd_comfy-env
@@ -53,7 +47,6 @@ else
     
 fi
 log "Finished Preparing Environment for Stable Diffusion Comfy"
-
 
 
 if [[ -z "$INSTALL_ONLY" ]]; then
