@@ -55,8 +55,6 @@ fi
 log "Finished Preparing Environment for Stable Diffusion Comfy"
 
 
-wget -P /notebooks/models/sd https://stuffer.ai/startup/models/bigbellybabes_v20.safetensors https://stuffer.ai/startup/models/bbw_Aurora%20Borealis.safetensors https://stuffer.ai/startup/models/biggerGirlsModels_modelBV2.ckpt
-
 
 if [[ -z "$INSTALL_ONLY" ]]; then
   echo "### Starting Stable Diffusion Comfy ###"
@@ -67,7 +65,7 @@ if [[ -z "$INSTALL_ONLY" ]]; then
 fi
 
 if env | grep -q "PAPERSPACE"; then
-  echo "Link: https://$PAPERSPACE_FQDN/com5/"
+  echo "Link: https://$PAPERSPACE_FQDN/com4/"
 fi
 
 
