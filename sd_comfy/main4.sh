@@ -9,6 +9,45 @@ source .env
 trap 'error_exit "### ERROR ###"' ERR
 
 
+echo "### Setting up Stable Diffusion Comfy ###"
+log "Setting up Stable Diffusion Comfy"
+if [[ "$REINSTALL_SD_COMFY" || ! -f "/tmp/sd_comfy.prepared" ]]; then
+
+    
+    TARGET_REPO_URL="https://github.com/comfyanonymous/ComfyUI.git" \
+    TARGET_REPO_DIR=$REPO_DIR \
+    UPDATE_REPO=$SD_COMFY_UPDATE_REPO \
+    UPDATE_REPO_COMMIT=$SD_COMFY_UPDATE_REPO_COMMIT \
+    prepare_repo 
+
+    symlinks=(
+      "$REPO_DIR/output:$IMAGE_OUTPUTS_DIR/stable-diffusion-comfy"
+      "$REPO_DIR/temp:$IMAGE_OUTPUTS_DIR/stable-diffusion-comfy/temp"
+
+    )
+    prepare_link "${symlinks[@]}"
+    rm -rf $VENV_DIR/sd_comfy-env
+    
+    
+    python3.10 -m venv $VENV_DIR/sd_comfy-env
+    
+    source $VENV_DIR/sd_comfy-env/bin/activate
+
+    pip install pip==24.0
+    pip install --upgrade wheel setuptools
+    
+    cd $REPO_DIR
+    pip install -r requirements.txt
+    
+    touch /tmp/sd_comfy.prepared
+else
+    
+    source $VENV_DIR/sd_comfy-env/bin/activate
+    
+fi
+log "Finished Preparing Environment for Stable Diffusion Comfy"
+
+
 if [[ -z "$INSTALL_ONLY" ]]; then
   echo "### Starting Stable Diffusion Comfy ###"
   log "Starting Stable Diffusion Comfy"
