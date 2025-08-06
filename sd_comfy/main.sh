@@ -37,8 +37,6 @@ if [[ "$REINSTALL_SD_COMFY" || ! -f "/tmp/sd_comfy.prepared" ]]; then
     pip install --upgrade wheel setuptools
     
     cd $REPO_DIR
-    pip install xformers
-    pip install torchvision torchaudio --no-deps
     pip install -r requirements.txt
     
     touch /tmp/sd_comfy.prepared
