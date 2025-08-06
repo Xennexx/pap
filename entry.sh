@@ -49,6 +49,9 @@ if [[ ! -d $WORKING_DIR/image_outputs ]]; then
 fi
 apt install htop -y
 bash /notebooks/sd_comfy/main.sh
+bash /notebooks/sd_comfy/main2.sh
+bash /notebooks/sd_comfy/main3.sh
+bash /notebooks/sd_comfy/main4.sh
 
 # Loop through each script and execute the corresponding case
 echo "Starting script(s)"
