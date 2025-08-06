@@ -7,20 +7,6 @@ function source_env_file() {
   fi
 }
 
-function check_required_env_vars() {
-  local required_vars=($(echo "$REQUIRED_ENV" | tr ',' '\n'))
-  local missing_vars=()
-  for var in "${required_vars[@]}"; do
-    if [[ -z "${!var}" ]]; then
-      missing_vars+=("$var")
-    fi
-  done
-  if [[ ${#missing_vars[@]} -gt 0 ]]; then
-    echo "The following required environment variables are missing: ${missing_vars[*]}"
-    return 1
-  fi
-  return 0
-}
 
 export SCRIPT_ROOT_DIR=$(dirname "$(realpath "${BASH_SOURCE[0]}")")
 cd $SCRIPT_ROOT_DIR
@@ -61,7 +47,8 @@ mkdir -p $IMAGE_OUTPUTS_DIR
 if [[ ! -d $WORKING_DIR/image_outputs ]]; then
   ln -s $IMAGE_OUTPUTS_DIR $WORKING_DIR/image_outputs
 fi
-apt install htop
+apt install htop -y
+bash /notebooks/sd_comfy/main.sh
 
 # Loop through each script and execute the corresponding case
 echo "Starting script(s)"
